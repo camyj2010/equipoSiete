@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1029907885512",
+    "project_id": "equiposiete-588bb",
+    "storage_bucket": "equiposiete-588bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029907885512:android:afb33acb5b096cc44ea4fd",
+        "android_client_info": {
+          "package_name": "com.example.equiposiete"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAov3Y0aiNIucMVJz81IZVBINnhokk-wDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
