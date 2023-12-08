@@ -7,7 +7,10 @@ plugins {
 android {
     namespace = "com.example.equiposiete"
     compileSdk = 34
+    buildFeatures {
+        viewBinding = true
 
+    }
     defaultConfig {
         applicationId = "com.example.equiposiete"
         minSdk = 24
@@ -55,6 +58,7 @@ dependencies {
 
     //authentication
     implementation("com.google.firebase:firebase-auth-ktx")
+
 
 
 }

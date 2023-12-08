@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.WhiteBorder" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <!-- Color del texto flotante (hint) -->
+        <item name="android:textColorHint">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+
+        <!-- Color del borde del cuadro cuando está enfocado -->
+        <item name="boxStrokeColor">@android:color/white</item>
+
+        <!-- Color de fondo del cuadro cuando está enfocado -->
+        <item name="boxBackgroundColor">@android:color/black</item>
+
+
+    </style>
+</resources>
