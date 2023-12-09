@@ -1,0 +1,68 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.EquipoSiete.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondowidget"
+    android:theme="@style/Theme.EquipoSiete.AppWidgetContainer">
+    <LinearLayout
+        android:id="@+id/Contenedor_visibilidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+
+        >
+    <TextView
+        android:id="@+id/text_cuantotengo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:text="¿Cuánto tengo de inventario?"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        />
+    <ImageView
+        android:id="@+id/iconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/visibilidadactiva"
+        android:layout_toRightOf="@id/text_cuantotengo"
+        android:layout_marginTop="7dp"
+        />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/text_inventario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventario"
+        android:textColor="#ff3d00"
+        android:layout_below="@id/text_saldo"
+        />
+    <TextView
+        android:id="@+id/text_saldo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$ * * * *"
+        android:textColor="#ffff"
+        android:layout_below="@id/Contenedor_visibilidad"
+        android:layout_alignParentRight="true"
+        android:textAlignment="textEnd"
+        />
+    <TextView
+        android:id="@+id/text_gestionarinventario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:text="Gestionar Inventario"
+        android:layout_toRightOf="@id/text_inventario"
+        android:layout_alignParentRight="true"
+        android:textAlignment="textEnd"
+
+        android:layout_below="@id/text_saldo"
+        />
+
+    <!-- Otros elementos de diseño si los tienes -->
+
+</RelativeLayout>
