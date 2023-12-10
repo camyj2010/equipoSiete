@@ -8,7 +8,8 @@ android {
     namespace = "com.example.equiposiete"
     compileSdk = 34
     buildFeatures {
-        viewBinding = true
+
+        dataBinding= true
 
     }
     defaultConfig {
