@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "1029907885512",
-    "project_id": "equiposiete-588bb",
-    "storage_bucket": "equiposiete-588bb.appspot.com"
+    "project_number": "52465323738",
+    "project_id": "loginfirestore-ca8fd",
+    "storage_bucket": "loginfirestore-ca8fd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1029907885512:android:afb33acb5b096cc44ea4fd",
+        "mobilesdk_app_id": "1:52465323738:android:7c0343fdd64f772f32dfe3",
         "android_client_info": {
-          "package_name": "com.example.equiposiete"
+          "package_name": "com.appmovil.loginfirestore"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAov3Y0aiNIucMVJz81IZVBINnhokk-wDU"
+          "current_key": "AIzaSyDwwQDdvnOXqnvK0E3aza6OSc3u9Jmv-Hw"
         }
       ],
       "services": {

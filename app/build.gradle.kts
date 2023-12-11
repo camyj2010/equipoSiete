@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.equiposiete"
+    namespace = "com.appmovil.loginfirestore"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.equiposiete"
+        applicationId = "com.appmovil.loginfirestore"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -34,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -42,12 +45,15 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    //navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+    //test
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    //firebase
-
-    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    //firestore:
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-firestore")
 
     // LiveData
@@ -56,5 +62,8 @@ dependencies {
     //authentication
     implementation("com.google.firebase:firebase-auth-ktx")
 
-
+    //viewmodel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.activity:activity-ktx:1.8.0")
+    implementation ("androidx.fragment:fragment-ktx:1.6.2")
 }

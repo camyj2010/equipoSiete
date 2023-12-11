@@ -1,4 +1,4 @@
-package com.example.equiposiete
+package com.appmovil.loginfirestore
 
 import org.junit.Test
 
