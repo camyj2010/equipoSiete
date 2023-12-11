@@ -1,16 +1,16 @@
-package com.example.equiposiete.viewmodel
+package com.appmovil.loginfirestore.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.equiposiete.repository.LoginRepository
+import com.appmovil.loginfirestore.repository.LoginRepository
 import com.google.firebase.auth.FirebaseAuth
+
 class LoginViewModel : ViewModel() {
     private val repository = LoginRepository()
 
     //registerUser se comunica con el repository
     fun registerUser(email: String, pass: String, isRegister: (Boolean) -> Unit) {
-        print("2")
         repository.registerUser(email, pass) { response ->
             isRegister(response)
         }

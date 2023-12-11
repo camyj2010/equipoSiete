@@ -10,8 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EquipoSiete"
+        android:theme="@style/Theme.LoginFirestore"
         tools:targetApi="31">
+        <activity
+            android:name=".view.HomeActivity"
+            android:exported="false" />
         <activity
             android:name=".view.LoginActivity"
             android:exported="true">

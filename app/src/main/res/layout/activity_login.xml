@@ -94,7 +94,7 @@
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="50dp"
             android:text="Login"
-            app:backgroundTint="@color/my_button_color"
+            app:backgroundTint="#FF5722"
             app:cornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

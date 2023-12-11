@@ -1,34 +1,33 @@
-package com.example.equiposiete.view
+package com.appmovil.loginfirestore.view
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.equiposiete.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.example.equiposiete.databinding.ActivityLoginBinding
-import com.example.equiposiete.viewmodel.LoginViewModel
+import androidx.fragment.app.viewModels
+import com.appmovil.loginfirestore.R
+import com.appmovil.loginfirestore.databinding.ActivityLoginBinding
+import com.appmovil.loginfirestore.viewmodel.LoginViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityLoginBinding
+    private val loginViewModel: LoginViewModel by viewModels()
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var passwordContainer: TextInputLayout
     private lateinit var emailEditText: TextInputEditText
     private lateinit var loginButton: MaterialButton
-    private lateinit var binding: ActivityLoginBinding
-    private val loginViewModel: LoginViewModel by viewModels()
-    private lateinit var sharedPreferences: SharedPreferences
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,10 +100,9 @@ class LoginActivity : AppCompatActivity() {
             loginButton.setTypeface(null, android.graphics.Typeface.BOLD)
         }
     }
-
     private fun setup() {
         binding.tvRegister.setOnClickListener {
-            registerUser()
+           registerUser()
         }
 
         binding.btnLogin.setOnClickListener {
@@ -114,9 +112,6 @@ class LoginActivity : AppCompatActivity() {
     private fun registerUser(){
         val email = binding.emailEditText.text.toString()
         val pass = binding.passwordEditText.text.toString()
-        print("1")
-        print(email)
-        print(pass)
         loginViewModel.registerUser(email,pass) { isRegister ->
             if (isRegister) {
                 goToHome(email)
@@ -136,13 +131,13 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser(){
         val email = binding.emailEditText.text.toString()
         val pass = binding.passwordEditText.text.toString()
-        loginViewModel.loginUser(email,pass){ isLogin ->
-            if (isLogin){
-                goToHome(email)
-            }else {
-                Toast.makeText(this, "Login incorrecto", Toast.LENGTH_SHORT).show()
-            }
-        }
+       loginViewModel.loginUser(email,pass){ isLogin ->
+           if (isLogin){
+               goToHome(email)
+           }else {
+               Toast.makeText(this, "Login incorrecto", Toast.LENGTH_SHORT).show()
+           }
+       }
     }
     private fun sesion(){
         val email = sharedPreferences.getString("email",null)
@@ -158,4 +153,3 @@ class LoginActivity : AppCompatActivity() {
         binding.clContenedor.visibility = View.VISIBLE
     }
 }
-
