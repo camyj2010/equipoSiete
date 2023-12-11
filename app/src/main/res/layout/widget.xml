@@ -62,6 +62,10 @@
 
         android:layout_below="@id/text_saldo"
         />
+    <Button
+        android:id="@+id/ButtonRandom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <!-- Otros elementos de diseño si los tienes -->
 
