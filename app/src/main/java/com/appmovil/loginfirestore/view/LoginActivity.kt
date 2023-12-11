@@ -18,6 +18,7 @@ import androidx.fragment.app.viewModels
 import com.appmovil.loginfirestore.R
 import com.appmovil.loginfirestore.databinding.ActivityLoginBinding
 import com.appmovil.loginfirestore.viewmodel.LoginViewModel
+import com.google.android.material.textview.MaterialTextView
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordContainer: TextInputLayout
     private lateinit var emailEditText: TextInputEditText
     private lateinit var loginButton: MaterialButton
-
+    private lateinit var registerButton: MaterialTextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -43,10 +44,11 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.passwordEditText)
         emailEditText = findViewById(R.id.emailEditText)
         loginButton = findViewById(R.id.btnLogin)
+        registerButton= findViewById(R.id.tvRegister)
 
         // Inicialmente deshabilitar el botón de inicio de sesión
         loginButton.isEnabled = false
-
+        registerButton.isEnabled= false
         // Agregar TextWatcher para validar la contraseña en tiempo real
         passwordEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
@@ -94,6 +96,11 @@ class LoginActivity : AppCompatActivity() {
         val passwordFilled = passwordEditText.text!!.length >=6
 
         loginButton.isEnabled = emailFilled == true && passwordFilled
+        registerButton.isEnabled = emailFilled == true && passwordFilled
+        if (registerButton.isEnabled) {
+            registerButton.setTextColor(getColor(R.color.white))
+            registerButton.setTypeface(null, android.graphics.Typeface.BOLD)
+        }
 
         if (loginButton.isEnabled) {
             loginButton.setTextColor(getColor(R.color.white))
