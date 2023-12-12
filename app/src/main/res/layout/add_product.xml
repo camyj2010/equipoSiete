@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#CC000000"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#424242"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:text="Agregar producto"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <EditText
+        android:id="@+id/editTextProductCode"
+        android:layout_width="324dp"
+        android:layout_height="53dp"
+        android:background="@drawable/edittext_border"
+        android:hint="Código producto"
+        android:inputType="number"
+        android:maxLength="4"
+        android:padding="8dp"
+        android:textColorHint="@color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="113dp" />
+
+    <EditText
+        android:id="@+id/editArticleName"
+        android:layout_width="324dp"
+        android:layout_height="53dp"
+        android:background="@drawable/edittext_border"
+        android:hint="Nombre articulo"
+        android:inputType="text"
+        android:maxLength="40"
+        android:padding="8dp"
+        android:textColorHint="@color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <EditText
+        android:id="@+id/editPrice"
+        android:layout_width="324dp"
+        android:layout_height="53dp"
+        android:background="@drawable/edittext_border"
+        android:hint="Precio"
+        android:inputType="number"
+        android:maxLength="20"
+        android:padding="8dp"
+        android:textColorHint="@color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="265dp" />
+
+    <EditText
+        android:id="@+id/editQuantity"
+        android:layout_width="324dp"
+        android:layout_height="53dp"
+        android:background="@drawable/edittext_border"
+        android:hint="Cantidad"
+        android:inputType="number"
+        android:maxLength="4"
+        android:padding="8dp"
+        android:textColorHint="@color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="339dp" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="321dp"
+        android:layout_height="52dp"
+        android:text="Guardar"
+        android:textColor="#CC000000"
+        app:backgroundTint="#FF5722"
+        app:cornerRadius="20dp"
+        android:enabled="false"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="417dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
