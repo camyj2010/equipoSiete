@@ -5,4 +5,12 @@
         <item name="hintTextColor">@color/text_field</item>
         <item name="android:textColorHint">@color/text_field</item>
     </style>
+    <style name="ShapeAppearanceOverlay.MyApp.Rounded" parent="">
+        <item name="strokeColor">@color/my_button_color</item>
+        <item name="backgroundTint">@color/my_button_color</item>
+        <item name="colorBackgroundFloating">@color/my_button_color</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15dp</item>
+        <!-- Ajusta el radio según tus necesidades -->
+    </style>
 </resources>
