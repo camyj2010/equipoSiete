@@ -6,9 +6,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.appmovil.loginfirestore.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.appmovil.loginfirestore.databinding.FragmentAddProductBinding
+import com.appmovil.loginfirestore.model.Articulo
 
 class addFragment : Fragment() {
 
@@ -26,7 +30,7 @@ class addFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        goHome()
         setupButton()
         binding.saveButton.isEnabled = false
         // Configura los oyentes y la lógica según sea necesario.
@@ -39,7 +43,7 @@ class addFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             if (camposEstanLlenos()) {
                 // Lógica para guardar en Firestore y mostrar en la lista de productos (Criterio 8)
-                guardarProductoEnFirestore()
+                guardarProducto()
             }
         }
 
@@ -73,13 +77,41 @@ class addFragment : Fragment() {
         return codigo.isNotEmpty() && nombre.isNotEmpty() && precio.isNotEmpty() && cantidad.isNotEmpty()
     }
 
-    private fun guardarProductoEnFirestore() {
+    private fun guardarProducto() {
         val codigo = binding.editTextProductCode.text.toString()
         val nombre = binding.editArticleName.text.toString()
         val precio = binding.editPrice.text.toString()
         val cantidad = binding.editQuantity.text.toString()
 
-        // Aquí deberías implementar la lógica para guardar en Firestore
-        // por ejemplo, creando un objeto Producto y agregándolo a la colección correspondiente.
+        if (codigo.isNotEmpty() && nombre.isNotEmpty() && precio.isNotEmpty() && cantidad.isNotEmpty()) {
+            val articulo = Articulo(codigo.toInt(), nombre, precio.toInt(), cantidad.toInt())
+
+            db.collection("articulo").document(articulo.codigo.toString()).set(
+                hashMapOf(
+                    "codigo" to articulo.codigo,
+                    "nombre" to articulo.nombre,
+                    "precio" to articulo.precio,
+                    "cantidad" to articulo.cantidad
+                )
+            )
+
+            Toast.makeText(context, "Articulo guardado", Toast.LENGTH_SHORT).show()
+            limpiarCampos()
+        } else {
+            Toast.makeText(context, "Llene los campos", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun goHome(){
+        binding.backArrow.setOnClickListener{
+            findNavController().navigate(R.id.action_addFragment_to_homeFragment)
+        }
+    }
+
+    private fun limpiarCampos() {
+        binding.editArticleName.setText("")
+        binding.editTextProductCode.setText("")
+        binding.editPrice.setText("")
+        binding.editQuantity.setText("")
     }
 }
