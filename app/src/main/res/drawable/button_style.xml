@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/rounded_button.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#ff3d00" /> <!-- Color de fondo del botón -->
+    <corners android:radius="30dp" /> <!-- Radio de las esquinas (ajusta según lo necesario) -->
+</shape>

@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
+import com.appmovil.loginfirestore.R
 import com.appmovil.loginfirestore.databinding.FragmentHomeBinding
 import com.appmovil.loginfirestore.model.Articulo
 import com.appmovil.loginfirestore.view.HomeActivity
@@ -36,6 +39,7 @@ class HomeFragment : Fragment() {
         dataLogin()
         setup()
         listarProducto()
+        goAddProduct()
     }
 
     private fun setup() {
@@ -43,32 +47,10 @@ class HomeFragment : Fragment() {
             logOut()
         }
         binding.btnGuardarArticulo.setOnClickListener {
-            guardarProducto()
+            //
         }
     }
-    private fun guardarProducto() {
-        val codigo = binding.etCodigo.text.toString()
-        val nombre = binding.etNombreArticulo.text.toString()
-        val precio = binding.etPrecio.text.toString()
 
-        if (codigo.isNotEmpty() && nombre.isNotEmpty() && precio.isNotEmpty()) {
-            val articulo = Articulo(codigo.toInt(), nombre, precio.toInt())
-
-            db.collection("articulo").document(articulo.codigo.toString()).set(
-                hashMapOf(
-                    "codigo" to articulo.codigo,
-                    "nombre" to articulo.nombre,
-                    "precio" to articulo.precio
-                )
-            )
-
-            Toast.makeText(context, "Articulo guardado", Toast.LENGTH_SHORT).show()
-            limpiarCampos()
-            listarProducto()
-        } else {
-            Toast.makeText(context, "Llene los campos", Toast.LENGTH_SHORT).show()
-        }
-    }
 
 
 
@@ -102,9 +84,10 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun limpiarCampos() {
-        binding.etCodigo.setText("")
-        binding.etNombreArticulo.setText("")
-        binding.etPrecio.setText("")
+
+    private fun goAddProduct(){
+        binding.btnGuardarArticulo.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_addFragment)
+        }
     }
 }
