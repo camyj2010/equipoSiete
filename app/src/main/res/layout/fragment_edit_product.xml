@@ -16,7 +16,7 @@
             tools:ignore="MissingConstraints">
 
             <ImageView
-                android:id="@+id/backArrowAdd"
+                android:id="@+id/backArrowEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:src="@drawable/baseline_arrow_back_ios_new_24" />
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="50dp"
-                android:text="Agregar producto"
+                android:text="Editar producto"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
@@ -35,21 +35,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/codeContainer"
             style="@style/outlinedTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="334dp"
+            android:layout_height="30dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="136dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.311"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addTextProductCode"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textProductCode"
+                android:layout_width="108dp"
                 android:layout_height="match_parent"
-                android:hint="Código producto"
-                android:inputType="number"
-                android:maxLength="4"
+                android:text="Id:"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 app:boxStrokeColor="@color/white" />
@@ -68,7 +67,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addArticleName"
+                android:id="@+id/editArticleName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Nombre articulo"
@@ -92,7 +91,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addPrice"
+                android:id="@+id/editPrice"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Precio"
@@ -116,7 +115,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addQuantity"
+                android:id="@+id/editQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Cantidad"
@@ -139,11 +138,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/saveButton"
+                android:id="@+id/editButton"
                 android:layout_width="321dp"
                 android:layout_height="52dp"
                 android:gravity="center"
-                android:text="Guardar"
+                android:text="Editar"
                 android:textColor="#CC000000"
                 app:backgroundTint="#FF5722"
                 app:cornerRadius="20dp"
