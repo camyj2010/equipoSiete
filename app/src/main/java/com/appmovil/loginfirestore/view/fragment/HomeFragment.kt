@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
 
     private fun goAddProduct(){
         binding.btnGuardarArticulo.setOnClickListener{
-            findNavController().navigate(R.id.action_homeFragment_to_addFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_addProduct)
         }
     }
 }

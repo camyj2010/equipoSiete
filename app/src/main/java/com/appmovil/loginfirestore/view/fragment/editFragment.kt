@@ -84,6 +84,27 @@ class editFragment : Fragment() {
         binding.editQuantity.setText("")
     }
 
+    private fun getProducto(){
+        db.collection("articulo").get().addOnSuccessListener() {
+            var codigo = ""
+            var nombre = ""
+            var precio = ""
+            var cantidad = ""
+            for (document in it.documents) {
+                // Aquí puedes personalizar cómo deseas mostrar cada artículo en la lista
+                codigo = "Código: ${document.get("codigo")} "
+                nombre = "Nombre: ${document.get("nombre")} "
+                precio = "Precio: ${document.get("precio")} "
+                cantidad = "Cantidad: ${document.get("cantidad")}"
+            }
+            binding.textProductCode.text = "Id: "+ codigo
+            binding.editArticleName.setText(nombre)
+            binding.editPrice.setText(precio)
+            binding.editQuantity.setText(cantidad)
+
+        }
+    }
+
     ///////////////////////////////edit////////////////////////////
     private fun editarProducto() {
         val codigo = binding.textProductCode.text.toString()
