@@ -3,24 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/homeInventoryFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.appmovil.loginfirestore.view.fragment.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/fragment_home">
+
+        android:id="@+id/homeInventoryFragment"
+        android:name="com.example.equipoSiete.view.fragment.HomeInventoryFragment"
+        android:label="fragment_home_inventory"
+        tools:layout="@layout/fragment_home_inventory" >
         <action
-            android:id="@+id/action_homeFragment_to_addFragment"
-            app:destination="@id/addFragment" />
+            android:id="@+id/action_homeInventoryFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+        <action
+            android:id="@+id/action_homeInventoryFragment_to_itemDetailsFragment"
+            app:destination="@id/itemDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addFragment"
-        android:name="addFragment"
-        android:label="addFragment"
-        tools:layout="@layout/fragment_add_product">
+        android:id="@+id/addItemFragment"
+        android:name="com.example.equipoSiete.view.fragment.AddItemFragment"
+        android:label="fragment_add_item"
+        tools:layout="@layout/fragment_add_item" />
+    <fragment
+        android:id="@+id/itemDetailsFragment"
+        android:name="com.example.equipoSiete.view.fragment.ItemDetailsFragment"
+        android:label="fragment_item_details"
+        tools:layout="@layout/fragment_item_details" >
         <action
-            android:id="@+id/action_addFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_itemDetailsFragment_to_itemEditFragment"
+            app:destination="@id/itemEditFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/itemEditFragment"
+        android:name="com.example.equipoSiete.view.fragment.ItemEditFragment"
+        android:label="fragment_item_edit"
+        tools:layout="@layout/fragment_item_edit" >
+        <action
+            android:id="@+id/action_itemEditFragment_to_homeInventoryFragment"
+            app:destination="@id/homeInventoryFragment"
+            app:popUpTo="@+id/homeInventoryFragment"
+            app:popUpToInclusive="true"/>
+
     </fragment>
 </navigation>

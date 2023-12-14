@@ -1,0 +1,71 @@
+package com.example.equipoSiete.repository
+import com.example.equipoSiete.data.InventoryDao
+import com.example.equipoSiete.model.Inventory
+import com.example.equipoSiete.model.Product
+import com.example.equipoSiete.webservice.ApiService
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+
+class InventoryRepository  @Inject constructor(
+    private val inventoryDao: InventoryDao,
+    private val apiService: ApiService,
+    private val db: FirebaseFirestore,
+){
+     suspend fun saveInventory(inventory:Inventory){
+         withContext(Dispatchers.IO){
+             inventoryDao.saveInventory(inventory)
+         }
+     }
+
+    suspend fun getListInventory():MutableList<Inventory>{
+        return withContext(Dispatchers.IO){
+            try {
+                val snapshot = db.collection("articulo").get().await()
+                val inventoryList = mutableListOf<Inventory>()
+                for (document in snapshot.documents) {
+                    val codigo = document.getLong("codigo")?.toInt() ?: 0
+                    val nombre = document.getString("nombre") ?: ""
+                    val precio = document.getLong("precio")?.toInt() ?: 0
+                    val canntidad = document.getLong("canntidad")?.toInt() ?: 0
+
+                    val item = Inventory(codigo, nombre, precio, canntidad)
+                    inventoryList.add(item)
+                }
+
+                inventoryList
+            } catch (e: Exception) {
+                e.printStackTrace()
+                mutableListOf()
+            }
+        }
+    }
+
+
+    suspend fun deleteInventory(inventory: Inventory){
+        withContext(Dispatchers.IO){
+            inventoryDao.deleteInventory(inventory)
+        }
+    }
+
+    suspend fun updateRepositoy(inventory: Inventory){
+        withContext(Dispatchers.IO){
+            inventoryDao.updateInventory(inventory)
+        }
+    }
+
+    suspend fun getProducts(): MutableList<Product> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getProducts()
+                response
+            } catch (e: Exception) {
+
+                e.printStackTrace()
+                mutableListOf()
+            }
+        }
+    }
+}
