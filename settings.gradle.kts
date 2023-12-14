@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LoginFirestore"
+rootProject.name = "Clase8"
 include(":app")
  
