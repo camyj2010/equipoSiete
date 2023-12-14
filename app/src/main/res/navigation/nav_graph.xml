@@ -6,6 +6,7 @@
     app:startDestination="@id/homeInventoryFragment">
 
     <fragment
+
         android:id="@+id/homeInventoryFragment"
         android:name="com.example.equipoSiete.view.fragment.HomeInventoryFragment"
         android:label="fragment_home_inventory"
@@ -42,5 +43,6 @@
             app:destination="@id/homeInventoryFragment"
             app:popUpTo="@+id/homeInventoryFragment"
             app:popUpToInclusive="true"/>
+
     </fragment>
 </navigation>
