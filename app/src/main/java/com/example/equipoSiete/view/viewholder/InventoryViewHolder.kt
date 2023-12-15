@@ -19,6 +19,7 @@ class InventoryViewHolder(binding: ItemInventoryBinding, navController: NavContr
         bindingItem.articlePrice.text = "$ ${inventory.precio}"
         bindingItem.articleId.text = "${inventory.codigo}"
 
+
         bindingItem.cvInventory.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable("clave", inventory)
