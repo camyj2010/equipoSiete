@@ -6,19 +6,29 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.RemoteViews
 import com.example.equipoSiete.R
 import com.example.equipoSiete.view.LoginActivity
+import com.example.equipoSiete.viewmodel.InventoryViewModel
 import com.google.firebase.auth.FirebaseAuth
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
+import com.example.equipoSiete.view.MainActivity
+import com.example.equipoSiete.view.fragment.HomeInventoryFragment
+
 
 /**
  * Implementation of App Widget functionality.
  */
-class widget : AppWidgetProvider() {
+class widget() : AppWidgetProvider() {
     companion object {
+
         var saldoVisible: Boolean = false
         const val UPDATE_SALDO_ACTION = "com.appmovil.loginfirestore.UPDATE_SALDO_ACTION"
+
     }
+
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
@@ -59,6 +69,29 @@ class widget : AppWidgetProvider() {
             }
             "LOGOFF_SUCCESSFUL" -> {
                 userLogoff(context!!)
+            }
+            "CONFIG_CLICKED_ACTION" -> {
+                println(isUserLoggedIn())
+                if (isUserLoggedIn()) {
+                    val homeIntent = Intent(context, MainActivity::class.java)
+                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context?.startActivity(homeIntent)
+                } else {
+                    val loginIntent = Intent(context, LoginActivity::class.java)
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context?.startActivity(loginIntent)
+                }
+            }
+            "TEXT_GESTIONAR_CLICKED_ACTION" ->{
+                if (isUserLoggedIn()) {
+                    val homeIntent = Intent(context, MainActivity::class.java)
+                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context?.startActivity(homeIntent)
+                } else {
+                    val loginIntent = Intent(context, LoginActivity::class.java)
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context?.startActivity(loginIntent)
+                }
             }
         }
     }
@@ -135,6 +168,10 @@ class widget : AppWidgetProvider() {
         // Construct the RemoteViews object
         val views = RemoteViews(context.packageName, R.layout.widget)
         views.setOnClickPendingIntent(R.id.iconImageView, pendingIntent(context, "ICON_CLICKED_ACTION"))
+        views.setOnClickPendingIntent(R.id.config_image, pendingIntent(context, "CONFIG_CLICKED_ACTION"))
+        views.setOnClickPendingIntent(R.id.text_gestionarinventario, pendingIntent(context, "TEXT_GESTIONAR_CLICKED_ACTION"))
+
+
         //views.setTextViewText(R.id.appwidget_text, widgetText)
 
         // Instruct the widget manager to update the widget
