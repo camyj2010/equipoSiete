@@ -18,6 +18,8 @@ import com.example.equipoSiete.viewmodel.InventoryViewModel
 import com.example.equipoSiete.widget.widget
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class ItemDetailsFragment : Fragment() {
@@ -58,16 +60,22 @@ class ItemDetailsFragment : Fragment() {
     private fun dataInventory() {
         val receivedBundle = arguments
         receivedInventory = receivedBundle?.getSerializable("clave") as Inventory
-
+        val formattedPrice = convertToFormattedCurrency(receivedInventory.precio.toDouble())
         binding.tvItem.text = "${receivedInventory.nombre}"
-        binding.tvPrice.text = "$ ${receivedInventory.precio}"
+        binding.tvPrice.text = "$ ${formattedPrice}"
         binding.tvQuantity.text = "${receivedInventory.cantidad}"
         binding.txtTotal.text = "$ ${
-            inventoryViewModel.totalProducto(
+            convertToFormattedCurrency(inventoryViewModel.totalProducto(
                 receivedInventory.precio,
                 receivedInventory.cantidad
-            )
+            ).toDouble())
         }"
+    }
+    private fun convertToFormattedCurrency(amount: Double): String {
+        val currencyFormatter = NumberFormat.getNumberInstance(Locale("es", "ES"))
+        currencyFormatter.minimumFractionDigits = 2
+        currencyFormatter.maximumFractionDigits = 2
+        return currencyFormatter.format(amount)
     }
 
     private fun deleteInventory(){
