@@ -68,7 +68,7 @@ class widget() : AppWidgetProvider() {
                 }
             }
             "LOGIN_SUCCESSFUL" -> {
-                updateTextWidget(context!!, "$ 2000")
+                updateTextWidget(context!!)
             }
             "LOGOFF_SUCCESSFUL" -> {
                 userLogoff(context!!)
@@ -98,9 +98,9 @@ class widget() : AppWidgetProvider() {
             }
         }
     }
-    private fun updateTextWidget(context: Context, newText: String?) {
+    private fun updateTextWidget(context: Context) {
         totalInventario { newTotal ->
-            val valor = formatPrice(newTotal.toDouble())
+            val valor = formatearPrecio(newTotal.toDouble())
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val thisAppWidget = ComponentName(context.packageName, javaClass.name)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget)
@@ -123,7 +123,7 @@ class widget() : AppWidgetProvider() {
 
     private fun updateSaldoWidget(context: Context) {
         totalInventario { newTotal ->
-            val valor = formatPrice(newTotal.toDouble())
+            val valor = formatearPrecio(newTotal.toDouble())
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val thisAppWidget = ComponentName(context.packageName, javaClass.name)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget)
@@ -143,11 +143,11 @@ class widget() : AppWidgetProvider() {
         }
     }
 
-    private fun formatPrice(price: Double): String {
+    private fun formatearPrecio(precio: Double): String {
         val numberFormat = NumberFormat.getNumberInstance(Locale("es", "ES"))
         numberFormat.minimumFractionDigits = 2
         numberFormat.maximumFractionDigits = 2
-        return numberFormat.format(price)
+        return numberFormat.format(precio)
     }
 
     private fun userLogoff(context: Context) {
