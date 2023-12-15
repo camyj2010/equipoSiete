@@ -16,6 +16,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.equipoSiete.view.MainActivity
 import com.example.equipoSiete.view.fragment.HomeInventoryFragment
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 /**
@@ -25,7 +26,7 @@ class widget() : AppWidgetProvider() {
     companion object {
 
         var saldoVisible: Boolean = false
-        const val UPDATE_SALDO_ACTION = "com.appmovil.loginfirestore.UPDATE_SALDO_ACTION"
+        var total = 0L
 
     }
 
@@ -96,17 +97,19 @@ class widget() : AppWidgetProvider() {
         }
     }
     private fun updateTextWidget(context: Context, newText: String?) {
-        val appWidgetManager = AppWidgetManager.getInstance(context)
-        val thisAppWidget = ComponentName(context.packageName, javaClass.name)
-        val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget)
+        totalInventario { newTotal ->
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val thisAppWidget = ComponentName(context.packageName, javaClass.name)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget)
 
-        val views = RemoteViews(context.packageName, R.layout.widget)
-        views.setImageViewResource(R.id.iconImageView, R.drawable.visibilidad_off)
-        views.setTextViewText(R.id.text_saldo, newText)
+            val views = RemoteViews(context.packageName, R.layout.widget)
+            views.setImageViewResource(R.id.iconImageView, R.drawable.visibilidad_off)
+            views.setTextViewText(R.id.text_saldo, "$ $newTotal")
 
-        saldoVisible = true
+            saldoVisible = true
 
-        appWidgetManager.updateAppWidget(appWidgetIds, views)
+            appWidgetManager.updateAppWidget(appWidgetIds, views)
+        }
     }
 
     private fun isUserLoggedIn(): Boolean {
@@ -116,23 +119,24 @@ class widget() : AppWidgetProvider() {
     }
 
     private fun updateSaldoWidget(context: Context) {
-        // Cambiar el contenido del TextView text_saldo
-        val appWidgetManager = AppWidgetManager.getInstance(context)
-        val thisAppWidget = ComponentName(context.packageName, javaClass.name)
-        val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget)
-        val views = RemoteViews(context.packageName, R.layout.widget)
-        if (saldoVisible){
-            views.setImageViewResource(R.id.iconImageView, R.drawable.visibility_image)
-            views.setTextViewText(R.id.text_saldo, "$ * * * *")
-            saldoVisible = false
-        }else{
-            views.setImageViewResource(R.id.iconImageView, R.drawable.visibilidad_off)
-            views.setTextViewText(R.id.text_saldo, "$ 2000")
-            saldoVisible = true
-        }
+        totalInventario { newTotal ->
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val thisAppWidget = ComponentName(context.packageName, javaClass.name)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget)
+            val views = RemoteViews(context.packageName, R.layout.widget)
+            if (saldoVisible) {
+                views.setImageViewResource(R.id.iconImageView, R.drawable.visibility_image)
+                views.setTextViewText(R.id.text_saldo, "$ * * * *")
+                saldoVisible = false
+            } else {
+                views.setImageViewResource(R.id.iconImageView, R.drawable.visibilidad_off)
+                views.setTextViewText(R.id.text_saldo, "$ $newTotal")
+                saldoVisible = true
+            }
 
-        // Actualizar todos los widgets
-        appWidgetManager.updateAppWidget(appWidgetIds, views)
+            // Actualizar todos los widgets
+            appWidgetManager.updateAppWidget(appWidgetIds, views)
+        }
     }
 
     private fun userLogoff(context: Context) {
@@ -145,6 +149,31 @@ class widget() : AppWidgetProvider() {
         views.setTextViewText(R.id.text_saldo, "$ * * * *")
 
         appWidgetManager.updateAppWidget(appWidgetIds, views)
+    }
+
+    private fun totalInventario(callback: (Long) -> Unit) {
+        var total: Long = 0
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("articulo")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    val price = document.get("precio") as Long
+                    val quantity = document.get("cantidad") as Long
+
+                    println("Cantidad: ${quantity.toInt()}")
+                    println("Precio: ${price.toInt()}")
+
+                    total += price * quantity
+                }
+
+                callback(total)
+            }
+            .addOnFailureListener { exception ->
+                println("Error al obtener datos: $exception")
+                // Manejar el error según sea necesario
+            }
     }
 
     private fun pendingIntent(
@@ -179,4 +208,5 @@ class widget() : AppWidgetProvider() {
     }
 
 }
+
 
