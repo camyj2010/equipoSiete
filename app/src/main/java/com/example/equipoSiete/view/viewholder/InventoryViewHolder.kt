@@ -16,7 +16,7 @@ class InventoryViewHolder(binding: ItemInventoryBinding, navController: NavContr
     fun setItemInventory(inventory: Inventory) {
         val formattedPrice = convertToFormattedCurrency(inventory.precio.toDouble())
         bindingItem.articleName.text = inventory.nombre
-        bindingItem.articlePrice.text = "$ ${inventory.precio}"
+        bindingItem.articlePrice.text = "$${formattedPrice}"
         bindingItem.articleId.text = "${inventory.codigo}"
 
 

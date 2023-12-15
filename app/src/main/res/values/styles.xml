@@ -15,6 +15,10 @@
         <item name="cornerSize">15dp</item>
         <!-- Ajusta el radio según tus necesidades -->
     </style>
+    <style name="ProgressStyle" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/my_button_color</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+    </style>
 
     <style name="Widget.Clase8.AppWidget.Container" parent="android:Widget">
         <item name="android:id">@android:id/background</item>
