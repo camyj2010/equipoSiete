@@ -15,6 +15,7 @@ import com.example.equipoSiete.model.Inventory
 import com.example.equipoSiete.view.LoginActivity
 import com.example.equipoSiete.view.MainActivity
 import com.example.equipoSiete.viewmodel.InventoryViewModel
+import com.example.equipoSiete.widget.widget
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -72,6 +73,11 @@ class ItemDetailsFragment : Fragment() {
     private fun deleteInventory(){
         inventoryViewModel.deleteInventory(receivedInventory)
         inventoryViewModel.getListInventory()
+        (requireActivity() as MainActivity).apply {
+            val widgetIntent = Intent(this, widget::class.java)
+            widgetIntent.action = "UPDATE_TOTAL"
+            sendBroadcast(widgetIntent)
+        }
         findNavController().popBackStack()
     }
 

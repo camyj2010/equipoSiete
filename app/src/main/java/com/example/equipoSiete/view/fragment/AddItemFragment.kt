@@ -1,5 +1,6 @@
 package com.example.equipoSiete.view.fragment
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
@@ -17,7 +18,10 @@ import com.bumptech.glide.Glide
 import com.example.equipoSiete.R
 import com.example.equipoSiete.databinding.FragmentAddItemBinding
 import com.example.equipoSiete.model.Inventory
+import com.example.equipoSiete.view.LoginActivity
+import com.example.equipoSiete.view.MainActivity
 import com.example.equipoSiete.viewmodel.InventoryViewModel
+import com.example.equipoSiete.widget.widget
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,6 +44,7 @@ class AddItemFragment : Fragment() {
         setupButton()
         goHome()
 
+
     }
 
     private fun saveInvetory(){
@@ -52,6 +57,12 @@ class AddItemFragment : Fragment() {
         Log.d("test",inventory.toString())
         Toast.makeText(context,"Artículo guardado", Toast.LENGTH_SHORT).show()
         limpiarCampos()
+
+        (requireActivity() as MainActivity).apply {
+            val widgetIntent = Intent(this, widget::class.java)
+            widgetIntent.action = "UPDATE_TOTAL"
+            sendBroadcast(widgetIntent)
+        }
 
     }
 

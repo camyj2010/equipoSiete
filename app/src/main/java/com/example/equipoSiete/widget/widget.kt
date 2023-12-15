@@ -96,6 +96,10 @@ class widget() : AppWidgetProvider() {
                     context?.startActivity(loginIntent)
                 }
             }
+
+            "UPDATE_TOTAL" ->{
+                updateTextWidget(context!!)
+            }
         }
     }
     private fun updateTextWidget(context: Context) {

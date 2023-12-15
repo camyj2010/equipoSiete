@@ -1,5 +1,6 @@
 package com.example.equipoSiete.view.fragment
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
@@ -14,7 +15,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.equipoSiete.R
 import com.example.equipoSiete.databinding.FragmentItemEditBinding
 import com.example.equipoSiete.model.Inventory
+import com.example.equipoSiete.view.MainActivity
 import com.example.equipoSiete.viewmodel.InventoryViewModel
+import com.example.equipoSiete.widget.widget
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -92,6 +95,11 @@ class ItemEditFragment : Fragment() {
         val inventory = Inventory(receivedInventory.codigo, name,price,quantity)
         inventoryViewModel.updateInventory(inventory)
         Toast.makeText(context,"Artículo editado con exito", Toast.LENGTH_SHORT).show()
+        (requireActivity() as MainActivity).apply {
+            val widgetIntent = Intent(this, widget::class.java)
+            widgetIntent.action = "UPDATE_TOTAL"
+            sendBroadcast(widgetIntent)
+        }
         val bundle = Bundle()
         bundle.putSerializable("clave", inventory)
         findNavController().navigate(R.id.action_itemEditFragment_to_itemDetailsFragment,bundle)

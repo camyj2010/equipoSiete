@@ -96,23 +96,5 @@ class InventoryViewModel @Inject constructor(
         return total.toDouble()
     }
 
-    fun calculateTotalInventoryValue(): Double {
-        var totalValue = 0.0
-
-        // Verifica que la lista de inventarios no sea nula
-        val inventories = _listInventory.value
-
-        if (inventories != null) {
-            for (i in inventories.indices) {
-                val inventory = inventories[i]
-
-                // Calcula el valor del producto y lo agrega al total general
-                val productTotal = totalProducto(inventory.precio, inventory.cantidad)
-                totalValue += productTotal
-            }
-        }
-
-        return totalValue
-    }
 }
 
