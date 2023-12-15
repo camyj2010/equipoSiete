@@ -61,9 +61,21 @@ class InventoryRepository  @Inject constructor(
 
 
 
-    suspend fun deleteInventory(inventory: Inventory){
-        withContext(Dispatchers.IO){
-            inventoryDao.deleteInventory(inventory)
+    suspend fun deleteInventory(inventory: Inventory) {
+        withContext(Dispatchers.IO) {
+            try {
+                // Aquí asumo que 'codigo' es un identificador único para Inventory
+                val codigo = inventory.codigo
+
+                // Obtener una referencia al documento que queremos eliminar
+                val documentReference = db.collection("articulo").document(codigo.toString())
+
+                // Eliminar el documento
+                documentReference.delete().await()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                // Manejar la excepción según tus necesidades
+            }
         }
     }
 
