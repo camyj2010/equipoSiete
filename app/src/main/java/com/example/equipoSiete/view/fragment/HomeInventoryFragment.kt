@@ -19,6 +19,7 @@ import com.example.equipoSiete.view.MainActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.equipoSiete.view.adapter.InventoryAdapter
 import com.example.equipoSiete.viewmodel.InventoryViewModel
+import com.example.equipoSiete.widget.widget
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -98,8 +99,13 @@ class HomeInventoryFragment : Fragment() {
         sharedPreferences.edit().clear().apply()
         FirebaseAuth.getInstance().signOut()
         (requireActivity() as MainActivity).apply {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+            val widgetIntent = Intent(this, widget::class.java)
+            widgetIntent.action = "LOGOFF_SUCCESSFUL"
+            sendBroadcast(widgetIntent)
+            (requireActivity() as MainActivity).apply {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
         }
     }
 

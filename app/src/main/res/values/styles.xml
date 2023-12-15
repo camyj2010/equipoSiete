@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="outlinedTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/text_field</item>
         <item name="hintTextColor">@color/text_field</item>
         <item name="android:textColorHint">@color/text_field</item>
     </style>
+
     <style name="ShapeAppearanceOverlay.MyApp.Rounded" parent="">
         <item name="strokeColor">@color/my_button_color</item>
         <item name="backgroundTint">@color/my_button_color</item>
@@ -12,5 +14,15 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">15dp</item>
         <!-- Ajusta el radio según tus necesidades -->
+    </style>
+
+    <style name="Widget.Clase8.AppWidget.Container" parent="android:Widget">
+        <item name="android:id">@android:id/background</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+    </style>
+
+    <style name="Widget.Clase8.AppWidget.InnerView" parent="android:Widget">
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 </resources>
