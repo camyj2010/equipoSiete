@@ -80,8 +80,18 @@ class InventoryRepository  @Inject constructor(
     }
 
     suspend fun updateRepositoy(inventory: Inventory){
-        withContext(Dispatchers.IO){
-            inventoryDao.updateInventory(inventory)
+        withContext(Dispatchers.IO) {
+            try {
+                db.collection("articulo").document(inventory.codigo.toString()).update(
+                    mapOf(
+                        "nombre" to inventory.nombre,
+                        "precio" to inventory.precio,
+                        "cantidad" to inventory.cantidad
+                    )
+                ).await()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
