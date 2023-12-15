@@ -37,7 +37,6 @@ class ItemEditFragment : Fragment() {
         dataInventory()
         setupButton()
         goHome()
-
     }
 
     private fun setupButton() {
@@ -93,13 +92,15 @@ class ItemEditFragment : Fragment() {
         val inventory = Inventory(receivedInventory.codigo, name,price,quantity)
         inventoryViewModel.updateInventory(inventory)
         Toast.makeText(context,"Artículo editado con exito", Toast.LENGTH_SHORT).show()
-        findNavController().navigate(R.id.action_itemEditFragment_to_homeInventoryFragment)
+        val bundle = Bundle()
+        bundle.putSerializable("clave", inventory)
+        findNavController().navigate(R.id.action_itemEditFragment_to_itemDetailsFragment,bundle)
 
     }
 
     private fun goHome(){
         binding.backArrowEdit.setOnClickListener{
-            findNavController().navigate(R.id.action_itemEditFragment_to_homeInventoryFragment)
+            findNavController().navigateUp()
         }
     }
 
