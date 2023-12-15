@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.icu.text.NumberFormat
 import android.util.Log
 import android.widget.RemoteViews
 import com.example.equipoSiete.R
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.equipoSiete.view.MainActivity
 import com.example.equipoSiete.view.fragment.HomeInventoryFragment
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Locale
 
 
 /**
@@ -98,13 +100,14 @@ class widget() : AppWidgetProvider() {
     }
     private fun updateTextWidget(context: Context, newText: String?) {
         totalInventario { newTotal ->
+            val valor = formatPrice(newTotal.toDouble())
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val thisAppWidget = ComponentName(context.packageName, javaClass.name)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget)
 
             val views = RemoteViews(context.packageName, R.layout.widget)
             views.setImageViewResource(R.id.iconImageView, R.drawable.visibilidad_off)
-            views.setTextViewText(R.id.text_saldo, "$ $newTotal")
+            views.setTextViewText(R.id.text_saldo, "$ $valor")
 
             saldoVisible = true
 
@@ -120,6 +123,7 @@ class widget() : AppWidgetProvider() {
 
     private fun updateSaldoWidget(context: Context) {
         totalInventario { newTotal ->
+            val valor = formatPrice(newTotal.toDouble())
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val thisAppWidget = ComponentName(context.packageName, javaClass.name)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget)
@@ -130,13 +134,20 @@ class widget() : AppWidgetProvider() {
                 saldoVisible = false
             } else {
                 views.setImageViewResource(R.id.iconImageView, R.drawable.visibilidad_off)
-                views.setTextViewText(R.id.text_saldo, "$ $newTotal")
+                views.setTextViewText(R.id.text_saldo, "$ $valor")
                 saldoVisible = true
             }
 
             // Actualizar todos los widgets
             appWidgetManager.updateAppWidget(appWidgetIds, views)
         }
+    }
+
+    private fun formatPrice(price: Double): String {
+        val numberFormat = NumberFormat.getNumberInstance(Locale("es", "ES"))
+        numberFormat.minimumFractionDigits = 2
+        numberFormat.maximumFractionDigits = 2
+        return numberFormat.format(price)
     }
 
     private fun userLogoff(context: Context) {
