@@ -102,7 +102,7 @@ class ItemEditFragment : Fragment() {
         }
         val bundle = Bundle()
         bundle.putSerializable("clave", inventory)
-        findNavController().navigate(R.id.action_itemEditFragment_to_itemDetailsFragment,bundle)
+        //findNavController().navigate(R.id.action_itemEditFragment_to_itemDetailsFragment,bundle)
 
     }
 
