@@ -18,6 +18,7 @@ import androidx.fragment.app.viewModels
 import com.example.equipoSiete.R
 import com.example.equipoSiete.databinding.ActivityLoginBinding
 import com.example.equipoSiete.viewmodel.LoginViewModel
+import com.example.equipoSiete.widget.widget
 import com.google.android.material.textview.MaterialTextView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -83,6 +84,22 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    private fun redirectToHomeScreen() {
+
+        val homeIntent = Intent(this, MainActivity::class.java)
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(homeIntent)
+
+        // Redirigir al usuario a la pantalla de inicio del teléfono
+        val homeScreenIntent = Intent(Intent.ACTION_MAIN)
+        homeScreenIntent.addCategory(Intent.CATEGORY_HOME)
+        homeScreenIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(homeScreenIntent)
+
+        // Finalizar la actividad de inicio de sesión
+        finishAffinity()
+    }
+
     private fun validatePassword(password: String) {
         if (password.length in 1..5) {
             passwordContainer.error = "Mínimo 6 dígitos"
@@ -141,10 +158,20 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser(){
         val email = binding.emailEditText.text.toString()
         val pass = binding.passwordEditText.text.toString()
+        val fromWidget = intent.getBooleanExtra("fromWidget", false)
+
         loginViewModel.loginUser(email,pass){ isLogin ->
             if (isLogin){
-                saveSession(email)
-                goToHome()
+                // Actualiza el TextView en el widget
+                val widgetIntent = Intent(this, widget::class.java)
+                widgetIntent.action = "LOGIN_SUCCESSFUL"
+                sendBroadcast(widgetIntent)
+                if (fromWidget){
+                    redirectToHomeScreen()
+                }else{
+                    saveSession(email)
+                    goToHome()
+                }
             }else {
                 Toast.makeText(this, "Login incorrecto", Toast.LENGTH_SHORT).show()
             }
