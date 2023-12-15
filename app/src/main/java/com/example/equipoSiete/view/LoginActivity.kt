@@ -192,9 +192,13 @@ class LoginActivity : AppCompatActivity() {
         editor.putBoolean("isLoggedIn", true)
         editor.apply()
     }
+
+
     private fun checkSession() {
-        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-        if (isLoggedIn) {
+        //val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val isLoggedIn = firebaseAuth.currentUser
+        if ( isLoggedIn != null) {
             // El usuario ya ha iniciado sesión, navega a la actividad principal u otra actividad necesaria.
             goToHome()
         } else {
