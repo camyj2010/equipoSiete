@@ -35,7 +35,7 @@ class InventoryViewModelTest {
     @Test
     fun `test método totalProducto`(){
         //given (qué necesitamos:condiciones previas necesarias para que la prueba se ejecute correctamente)
-        val price = 10
+        val price = 10000
         val quantity = 5
         val expectedResult = (price * quantity).toDouble()
 
@@ -47,23 +47,23 @@ class InventoryViewModelTest {
     }
 
     @Test
-    fun `test método getProducts`() = runBlocking {
+    fun `test método getListInventory`() = runBlocking {
         //given
         // es responsable de ejecutar tareas en el hilo principal, necesitamos simular ese proceso
         Dispatchers.setMain(UnconfinedTestDispatcher())
         // Configurar el comportamiento del repositorio simulado
-        val mockProducts = mutableListOf(
-            Product(0, "zapatos", "hola como estas")
+        val mockInventory = mutableListOf(
+            Inventory(7, "zapatos", 60000,4)
         )
-        `when`(inventoryRepository.getProducts()).thenReturn(mockProducts)
+        `when`(inventoryRepository.getListInventory()).thenReturn(mockInventory)
 
         // Llamar a la función que queremos probar
         //when
-        inventoryViewModel.getProducts()
+        inventoryViewModel.getListInventory()
 
         // Asegurarse de que la LiveData de productos se haya actualizado correctamente
         //then
-        assertEquals(inventoryViewModel.listProducts.value, mockProducts)
+        assertEquals(inventoryViewModel.listInventory.value, mockInventory)
 // son utilizados para controlar y simular la ejecución de coroutines en el hilo principal durante las pruebas unitarias
         Dispatchers.resetMain()
     }
@@ -72,7 +72,7 @@ class InventoryViewModelTest {
     fun testSaveInventory_success() = runBlocking {
         //given
         Dispatchers.setMain(UnconfinedTestDispatcher())
-        val inventory= Inventory(id = 1, name = "Item1", price = 10, quantity = 5)
+        val inventory= Inventory(codigo = 1, nombre = "Item1", precio = 10, cantidad = 5)
         `when`(inventoryRepository.saveInventory(inventory))
             .thenAnswer { invocation ->
                 val inventoryArgument = invocation.getArgument<Inventory>(0)//inventoryArgument contendrá el valor del primer argumento que se pasó al método

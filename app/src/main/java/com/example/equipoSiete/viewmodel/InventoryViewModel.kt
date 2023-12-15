@@ -78,18 +78,7 @@ class InventoryViewModel @Inject constructor(
         }
     }
 
-    fun getProducts() {
-        viewModelScope.launch {
-            _progresState.value = true
-            try {
-                _listProducts.value = inventoryRepository.getProducts()
-                _progresState.value = false
 
-            } catch (e: Exception) {
-                _progresState.value = false
-            }
-        }
-    }
 
     fun totalProducto(price: Int, quantity: Int): Double {
         val total = price * quantity
