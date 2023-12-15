@@ -1,6 +1,7 @@
 
 package com.example.equipoSiete.view
 import android.os.Bundle
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.example.equipoSiete.R
 import dagger.hilt.android.AndroidEntryPoint
