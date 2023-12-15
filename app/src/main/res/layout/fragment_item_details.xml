@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="50dp"
-                android:text="Agregar producto"
+                android:text="Detalle del producto"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 

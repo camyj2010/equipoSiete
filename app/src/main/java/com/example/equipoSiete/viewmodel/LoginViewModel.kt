@@ -3,15 +3,21 @@ package com.example.equipoSiete.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.equipoSiete.repository.InventoryRepository
 import com.example.equipoSiete.repository.LoginRepository
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
-    private val repository = LoginRepository()
+@HiltViewModel
+class LoginViewModel  @Inject constructor(
+    private val loginRepository: LoginRepository
+) : ViewModel() {
+    //private val repository = LoginRepository()
 
     //registerUser se comunica con el repository
     fun registerUser(email: String, pass: String, isRegister: (Boolean) -> Unit) {
-        repository.registerUser(email, pass) { response ->
+        loginRepository.registerUser(email, pass) { response ->
             isRegister(response)
         }
     }

@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_itemDetailsFragment_to_itemEditFragment"
             app:destination="@id/itemEditFragment" />
+        <action
+            android:id="@+id/action_itemDetailsFragment_to_homeInventoryFragment"
+            app:destination="@id/homeInventoryFragment" />
     </fragment>
 
     <fragment

@@ -61,7 +61,7 @@
                 android:layout_marginTop="25dp"
                 android:padding="14dp"
                 android:text="Price"
-                android:textColor="@color/error_color"
+                android:textColor="@color/my_button_color"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 card_view:layout_constraintStart_toStartOf="parent"
