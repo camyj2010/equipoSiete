@@ -1,4 +1,5 @@
 package com.example.equipoSiete.repository
+import android.widget.Toast
 import com.example.equipoSiete.data.InventoryDao
 import com.example.equipoSiete.model.Inventory
 import com.example.equipoSiete.model.Product
@@ -14,11 +15,26 @@ class InventoryRepository  @Inject constructor(
     private val apiService: ApiService,
     private val db: FirebaseFirestore,
 ){
-     suspend fun saveInventory(inventory:Inventory){
-         withContext(Dispatchers.IO){
-             inventoryDao.saveInventory(inventory)
-         }
-     }
+
+    suspend fun saveInventory(inventory:Inventory) {
+        withContext(Dispatchers.IO) {
+           try {
+                    db.collection("articulo").document(inventory.codigo.toString()).set(
+                        hashMapOf(
+                            "codigo" to inventory.codigo,
+                            "nombre" to inventory.nombre,
+                            "precio" to inventory.precio,
+                            "cantidad" to inventory.cantidad
+                        )
+                    ).await()
+
+            } catch (e: Exception) {
+               e.printStackTrace()
+           }
+        }
+    }
+
+
 
     suspend fun getListInventory():MutableList<Inventory>{
         return withContext(Dispatchers.IO){
@@ -29,9 +45,9 @@ class InventoryRepository  @Inject constructor(
                     val codigo = document.getLong("codigo")?.toInt() ?: 0
                     val nombre = document.getString("nombre") ?: ""
                     val precio = document.getLong("precio")?.toInt() ?: 0
-                    val canntidad = document.getLong("canntidad")?.toInt() ?: 0
+                    val cantidad = document.getLong("cantidad")?.toInt() ?: 0
 
-                    val item = Inventory(codigo, nombre, precio, canntidad)
+                    val item = Inventory(codigo, nombre, precio, cantidad)
                     inventoryList.add(item)
                 }
 
@@ -42,6 +58,7 @@ class InventoryRepository  @Inject constructor(
             }
         }
     }
+
 
 
     suspend fun deleteInventory(inventory: Inventory){

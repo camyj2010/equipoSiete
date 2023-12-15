@@ -1,6 +1,9 @@
 package com.example.equipoSiete.view.fragment
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.equipoSiete.R
 import com.example.equipoSiete.databinding.FragmentAddItemBinding
 import com.example.equipoSiete.model.Inventory
 import com.example.equipoSiete.viewmodel.InventoryViewModel
@@ -33,59 +37,74 @@ class AddItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        controladores()
-        observerViewModel()
+        setupButton()
+        goHome()
 
-
-    }
-
-    private fun controladores() {
-        validarDatos()
-        binding.btnSaveInventory.setOnClickListener {
-            saveInvetory()
-        }
     }
 
     private fun saveInvetory(){
-        val nombre = binding.etName.text.toString()
-        val precio = binding.etPrice.text.toString().toInt()
-        val cantidad = binding.etQuantity.text.toString().toInt()
-        val inventory = Inventory(nombre = nombre, precio = precio, cantidad = cantidad)
+        val codigo = binding.addTextProductCode.text.toString().toInt()
+        val nombre = binding.addArticleName.text.toString()
+        val precio = binding.addPrice.text.toString().toInt()
+        val cantidad = binding.addQuantity.text.toString().toInt()
+        val inventory = Inventory(codigo = codigo, nombre = nombre, precio = precio, cantidad = cantidad)
         inventoryViewModel.saveInventory(inventory)
         Log.d("test",inventory.toString())
-        Toast.makeText(context,"Artículo guardado !!", Toast.LENGTH_SHORT).show()
-        findNavController().popBackStack()
+        Toast.makeText(context,"Artículo guardado", Toast.LENGTH_SHORT).show()
+        limpiarCampos()
 
     }
 
-    private fun validarDatos() {
-        val listEditText = listOf(binding.etName, binding.etPrice, binding.etQuantity)
+    private fun goHome(){
+        binding.backArrowAdd.setOnClickListener{
+            findNavController().navigate(R.id.action_addItemFragment_to_homeInventoryFragment)
+        }
+    }
 
-        for (editText in listEditText) {
-            editText.addTextChangedListener {
-                val isListFull = listEditText.all{
-                    it.text.isNotEmpty() // si toda la lista no está vacía
-                }
-                binding.btnSaveInventory.isEnabled = isListFull
+    private fun setupButton() {
+        // Configura el botón (Criterio 6 y 7)
+        binding.saveButton.setOnClickListener {
+            if (camposEstanLlenos()) {
+                // Lógica para guardar en Firestore y mostrar en la lista de productos (Criterio 8)
+                saveInvetory()
             }
         }
+
+        // Observador de cambios en los campos para habilitar/deshabilitar el botón
+        binding.addTextProductCode.addTextChangedListener(textWatcher)
+        binding.addArticleName.addTextChangedListener(textWatcher)
+        binding.addPrice.addTextChangedListener(textWatcher)
+        binding.addQuantity.addTextChangedListener(textWatcher)
     }
 
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-    private fun observerViewModel(){
-        observerListProduct()
-    }
-
-    private fun observerListProduct() {
-
-        inventoryViewModel.getProducts()
-        inventoryViewModel.listProducts.observe(viewLifecycleOwner){ lista ->
-
-            val product = lista[2]
-            Glide.with(binding.root.context).load(product.image).into(binding.ivImagenApi)
-            binding.tvTitleProduct.text = product.title
+        override fun afterTextChanged(s: Editable?) {
+            // Verificar si todos los campos están llenos y habilitar/deshabilitar el botón (Criterios 6 y 7)
+            binding.saveButton.isEnabled = camposEstanLlenos()
+            // Cambiar el color y estilo del texto del botón si está habilitado (Criterio 7)
+            binding.saveButton.setTextColor(if (binding.saveButton.isEnabled) resources.getColor(android.R.color.white) else resources.getColor(android.R.color.black))
+            binding.saveButton.setTypeface(null, if (binding.saveButton.isEnabled) Typeface.BOLD else Typeface.NORMAL)
         }
+    }
+
+    private fun camposEstanLlenos(): Boolean {
+        val codigo = binding.addTextProductCode.text.toString()
+        val nombre = binding.addArticleName.text.toString()
+        val precio = binding.addPrice.text.toString()
+        val cantidad = binding.addQuantity.text.toString()
+
+        return codigo.isNotEmpty() && nombre.isNotEmpty() && precio.isNotEmpty() && cantidad.isNotEmpty()
+    }
+
+    private fun limpiarCampos() {
+        binding.addArticleName.setText("")
+        binding.addTextProductCode.setText("")
+        binding.addPrice.setText("")
+        binding.addQuantity.setText("")
     }
 
 

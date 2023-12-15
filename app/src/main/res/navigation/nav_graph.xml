@@ -22,7 +22,11 @@
         android:id="@+id/addItemFragment"
         android:name="com.example.equipoSiete.view.fragment.AddItemFragment"
         android:label="fragment_add_item"
-        tools:layout="@layout/fragment_add_item" />
+        tools:layout="@layout/fragment_add_item" >
+        <action
+            android:id="@+id/action_addItemFragment_to_homeInventoryFragment"
+            app:destination="@id/homeInventoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itemDetailsFragment"
         android:name="com.example.equipoSiete.view.fragment.ItemDetailsFragment"
